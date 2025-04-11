@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microscope Size Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --text: #333;
+      --input-bg: #f9f9f9;
+      --highlight: #4CAF50;
+    }
+
+    [data-theme="dark"] {
+      --bg: #121212;
+      --card: #1e1e1e;
+      --text: #f1f1f1;
+      --input-bg: #2a2a2a;
+      --highlight: #00c37e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      background: var(--card);
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      transition: background 0.3s ease;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: var(--input-bg);
+      color: var(--text);
+      font-size: 15px;
+      transition: border-color 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      outline: none;
+      border-color: var(--highlight);
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 30px;
+      background-color: var(--highlight);
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #3fae44;
+      transform: scale(1.02);
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 15px;
+      background: var(--input-bg);
+      border-left: 4px solid var(--highlight);
+      border-radius: 8px;
+      font-size: 16px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .toggle-mode {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--text);
+      transition: color 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px 20px;
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <button class="toggle-mode" onclick="toggleTheme()">🌙</button>
+  <div class="container">
+    <h2>🔬 Microscope Size Calculator</h2>
+    <form method="POST">
+      <label for="username">👤 Username:</label>
+      <input type="text" name="username" id="username" required />
+
+      <label for="microscope_size">📏 Microscope Size (mm):</label>
+      <input type="number" step="0.01" name="microscope_size" id="microscope_size" required />
+
+      <label for="magnification">🔍 Magnification:</label>
+      <input type="number" step="0.01" name="magnification" id="magnification" required />
+
+      <input type="submit" value="🧮 Calculate" />
+    </form>
+
+    {% if result %}
+      <div class="result">
+        ✅ <strong>Actual Size:</strong> {{ result }} mm
+      </div>
+    {% endif %}
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute("data-theme");
+      body.setAttribute("data-theme", current === "light" ? "dark" : "light");
+      document.querySelector(".toggle-mode").textContent = current === "light" ? "☀️" : "🌙";
+    }
+  </script>
+</body>
+</html>
